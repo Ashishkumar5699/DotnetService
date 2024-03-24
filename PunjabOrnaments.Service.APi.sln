@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PunjabOrnaments.Service.APi", "PunjabOrnaments.Service.APi.csproj", "{6716E69A-C16C-46FC-B220-4C7A0DDE719E}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PunjabOrnaments.Common.Models", "..\PunjabOrnaments.Common\PunjabOrnaments.Common.Models.shproj", "{601197A7-76E1-4C88-B263-D3F0ECF85C4C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6716E69A-C16C-46FC-B220-4C7A0DDE719E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6716E69A-C16C-46FC-B220-4C7A0DDE719E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6716E69A-C16C-46FC-B220-4C7A0DDE719E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6716E69A-C16C-46FC-B220-4C7A0DDE719E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5052B7F3-FDB9-4487-A141-7C3B0DFC305E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\PunjabOrnaments.Common\PunjabOrnaments.Common.projitems*{601197a7-76e1-4c88-b263-d3f0ecf85c4c}*SharedItemsImports = 13
+		..\PunjabOrnaments.Common\PunjabOrnaments.Common.projitems*{6716e69a-c16c-46fc-b220-4c7a0dde719e}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal
