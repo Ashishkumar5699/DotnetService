@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "14db1430-04ea-41e9-9e6f-383a9cdb913b",
+		"name": "PunjabOrnaments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30504700"
+	},
+	"item": [
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Account/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Account/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Approval",
+			"item": [
+				{
+					"name": "Getallgoldpurchaserequests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n    \"purchaseRequestId\": 0,\r\n    \"matelType\": \"string\",\r\n    \"itemType\": \"string\",\r\n    \"brand\": \"string\",\r\n    \"manufactureId\": \"string\",\r\n    \"manufactureName\": \"string\",\r\n    \"grossWeight\": 0,\r\n    \"lessWeight\": 0,\r\n    \"netWeight\": 0,\r\n    \"quantity\": 0,\r\n    \"rate\": 0,\r\n    \"wastage\": 0,\r\n    \"labour\": 0,\r\n    \"purchaseDate\": \"2024-01-12T08:28:51.890Z\",\r\n    \"isApproved\": 0\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Approval/Getallgoldpurchaserequests",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Approval",
+								"Getallgoldpurchaserequests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GoldApprove",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Approval/GoldApprove/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Approval",
+								"GoldApprove",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GoldReject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Approval/GoldReject/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Approval",
+								"GoldReject",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "GetAllContacts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Contacts/GetAllContacts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Contacts",
+								"GetAllContacts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Stock",
+			"item": [
+				{
+					"name": "GetStock",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Stock",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Stock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Stock",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"image\": \"string\",\r\n  \"code\": \"string\",\r\n  \"grossWeight\": 0,\r\n  \"lessWeight\": 0,\r\n  \"netWeight\": 0,\r\n  \"brand\": \"string\",\r\n  \"carrot\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Stock",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Stock"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WeatherForecast",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/WeatherForecast",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"WeatherForecast"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
