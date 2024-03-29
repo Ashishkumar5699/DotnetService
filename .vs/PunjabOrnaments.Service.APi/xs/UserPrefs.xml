@@ -1,0 +1,21 @@
+﻿<Properties StartupConfiguration="{6716E69A-C16C-46FC-B220-4C7A0DDE719E}|APIServices">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <DisabledProjects>
+    <String>../PunjabOrnaments.Common/PunjabOrnaments.Common.Models.shproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="PunjabOrnaments.Service.APi" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.PunjabOrnaments.Service.APi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+</Properties>
