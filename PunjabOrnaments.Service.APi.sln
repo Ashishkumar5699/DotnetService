@@ -25,7 +25,7 @@ Global
 		SolutionGuid = {5052B7F3-FDB9-4487-A141-7C3B0DFC305E}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\PunjabOrnaments.Common\PunjabOrnaments.Common.projitems*{601197a7-76e1-4c88-b263-d3f0ecf85c4c}*SharedItemsImports = 13
-		..\PunjabOrnaments.Common\PunjabOrnaments.Common.projitems*{6716e69a-c16c-46fc-b220-4c7a0dde719e}*SharedItemsImports = 5
+		Common\Models\PunjabOrnaments.Common.projitems*{601197a7-76e1-4c88-b263-d3f0ecf85c4c}*SharedItemsImports = 13
+		Common\Models\PunjabOrnaments.Common.projitems*{6716e69a-c16c-46fc-b220-4c7a0dde719e}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
