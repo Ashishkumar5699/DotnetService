@@ -5,7 +5,10 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.draw;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static iTextSharp.text.Font;
+using static iTextSharp.text.pdf.AcroFields;
 using Document = iTextSharp.text.Document;
 using Rectangle = iTextSharp.text.Rectangle;
 
@@ -19,13 +22,76 @@ namespace PunjabOrnaments.Service.APi.Controllers.PDFController
         {
         }
 
-        [HttpGet("GeneratePDF")]
-        public string GeneratePDF()
+        //[HttpGet("GeneratePDF")]
+        //public string GeneratePDF()
+        //{
+        //    try
+        //    {
+        //        var filesPath = Path.Combine(Directory.GetCurrentDirectory());
+        //        var file = filesPath + "/Pdf" + "/test.pdf";
+        //        if (!System.IO.Directory.Exists(filesPath))//create path 
+        //        {
+        //            Directory.CreateDirectory(filesPath);
+        //        }
+        //        else
+        //        {
+        //            System.IO.File.Exists(file);
+        //            System.IO.File.Delete(file);
+        //        }
+
+        //        FileStream fs = new(file, FileMode.Create);
+
+        //        // Creating a Document   
+        //        Document document = new();
+
+        //        // Creating a PdfWriter 
+        //        PdfWriter writer = PdfWriter.GetInstance(document, fs);
+
+        //        document.Open();
+
+        //        AddBoarder(document, writer);
+
+        //        //title address type
+        //        CreateTitleandSubTitle(document);
+
+        //        //SNo and Date
+        //        Addtext(document, "S.no");
+        //        Addtext(document, "Name");
+        //        Addtext(document, "Address");
+        //        Addtext(document, "Place of supply");
+        //        Addtext(document, "Rate");
+        //        Addtext(document, "Sale by");
+
+        //        TextonLeftRightCorner(document, "S.No" + "{12345}".ToString(), "Date" + "-" + "{EndDate}".ToString());
+
+        //        TextonLeftRightCorner(document, "Invoice No" + "{1}".ToString(), "Page" + " - " + "{1}".ToString());
+
+        //        //Add Blank line
+        //        AddNewLine(document);
+
+        //        //Consumer Address and payment detail
+        //        AddConsumerDetailandPayment(document);
+
+        //        // Closing the document 
+        //        document.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //    return null;
+        //}
+
+
+        [HttpGet("GeneratePDFGPT")]
+        public void GeneratePDFGPT()
         {
+            // Creating a Document   
+            Document document = new();
             try
             {
                 var filesPath = Path.Combine(Directory.GetCurrentDirectory());
-                var file = filesPath + "/Pdf" + "/test.pdf";
+                var file = filesPath + "/Pdf" + "/Invoice.pdf";
                 if (!System.IO.Directory.Exists(filesPath))//create path 
                 {
                     Directory.CreateDirectory(filesPath);
@@ -35,113 +101,224 @@ namespace PunjabOrnaments.Service.APi.Controllers.PDFController
                     System.IO.File.Exists(file);
                     System.IO.File.Delete(file);
                 }
-
                 FileStream fs = new(file, FileMode.Create);
 
-                // Creating a Document   
-                Document document = new();
-
-                // Creating a PdfWriter 
-                PdfWriter writer = PdfWriter.GetInstance(document, fs);
-
+                var writer = PdfWriter.GetInstance(document, new FileStream(file, FileMode.Create));
                 document.Open();
 
+                // Set fonts
+                BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                Font titleFont = new Font(baseFont, 20, Font.BOLD);
+                Font headingFont = new Font(baseFont, 14, Font.BOLD);
+                Font normalFont = new Font(baseFont, 12, Font.NORMAL);
+
+                // Add invoice title
+                Paragraph title = new Paragraph("Invoice", titleFont);
+                title.Alignment = Element.ALIGN_CENTER;
+                document.Add(title);
                 AddBoarder(document, writer);
+                // Create a table for invoice details
+                PdfPTable invoiceDetailsTable = new PdfPTable(2);
+                invoiceDetailsTable.WidthPercentage = 100;
+                invoiceDetailsTable.DefaultCell.Border = Rectangle.NO_BORDER;
 
-                //title address type
-                CreateDefaultText(document);
+                PdfPCell invoiceNumberCell = new PdfPCell(new Phrase("Invoice Number: 12345", normalFont));
+                invoiceNumberCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                invoiceNumberCell.Border = Rectangle.NO_BORDER;
+                invoiceDetailsTable.AddCell(invoiceNumberCell);
 
-                //SNo and Date
-                AddSnoanddate(document);
+                PdfPCell dateCell = new PdfPCell(new Phrase("Date of Billing: " + DateTime.Now.ToString("yyyy-MM-dd"), normalFont));
+                dateCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                dateCell.Border = Rectangle.NO_BORDER;
+                invoiceDetailsTable.AddCell(dateCell);
 
-                //Add Blank line
-                AddNewLine(document);
+                document.Add(invoiceDetailsTable);
 
-                //Consumer Address and payment detail
-                AddConsumerDetailandPayment(document);
+                // Create a table for company and seller details
+                PdfPTable companySellerTable = new PdfPTable(2);
+                companySellerTable.WidthPercentage = 100;
+                companySellerTable.DefaultCell.Border = Rectangle.NO_BORDER;
 
-                // Closing the document 
-                document.Close();
+                PdfPCell gstNumberCell = new PdfPCell(new Phrase("GST Number: 123456789", normalFont));
+                gstNumberCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                gstNumberCell.Border = Rectangle.NO_BORDER;
+                companySellerTable.AddCell(gstNumberCell);
+
+                PdfPCell mobileNumberCell = new PdfPCell(new Phrase("Mobile Number: 123-456-7890", normalFont));
+                mobileNumberCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                mobileNumberCell.Border = Rectangle.NO_BORDER;
+                companySellerTable.AddCell(mobileNumberCell);
+
+                document.Add(companySellerTable);
+
+                // Add details inside a box
+                PdfPTable detailsTable = new PdfPTable(1);
+                detailsTable.WidthPercentage = 100;
+                detailsTable.SpacingBefore = 10f;
+
+                PdfPCell detailsCell = new PdfPCell();
+                detailsCell.Border = Rectangle.BOX;
+
+                // Add name, address, Aadhar number, GST number, PAN number, State, and State code
+                LeftRightTextforConsumer(normalFont, "Name: Your Name\n", "Mobile: 1234567890", detailsCell);
+                LeftRightTextforConsumer(normalFont, "Address: Your Address\n", "City : GKP", detailsCell);
+                LeftRightTextforConsumer(normalFont, "Aadhar Number: 1234 5678 9012\n", "GST Number: 123456789012345\n", detailsCell);
+                LeftRightTextforConsumer(normalFont, "PAN Number: ABCDE1234F\n", "Mobile: 1234567890", detailsCell);
+                LeftRightTextforConsumer(normalFont, "State: Your State\n", "State Code: 12", detailsCell);
+
+                detailsTable.AddCell(detailsCell);
+                document.Add(detailsTable);
+
+                // Add payment details
+                PdfPTable table = new PdfPTable(9);
+                table.WidthPercentage = 100;
+                //table.SpacingBefore = 20f;
+
+                string[] header = { "Description", "HSN Code", "Purity", "Weight", "Rate", "Making Charge", "Amount" };
+
+                int columnIndex = 0;
+                foreach (var item in header)
+                {
+                    AddCells(normalFont, table, item.ToString(), columnIndex == 0 ? 3 : 0, BaseColor.LIGHT_GRAY);
+                    columnIndex++;
+                }
+
+                var items = new List<ProductModel>
+                {
+                    new ProductModel
+                    {
+                        Description = "Product",
+                        HSN_Code = "1234",
+                        Purity = "750 (18k)",
+                        Weight = "15g",
+                        Rate = "5000",
+                        Making_Charge = "1000",
+                        Amount = "15000",
+                    },
+                    new ProductModel
+                    {
+                        Description = "Product",
+                        HSN_Code = "1234",
+                        Purity = "750 (18k)",
+                        Weight = "15g",
+                        Rate = "5000",
+                        Making_Charge = "1000",
+                        Amount = "15000",
+                    },
+                    new ProductModel
+                    {
+                        Description = "Product",
+                        HSN_Code = "1234",
+                        Purity = "750 (18k)",
+                        Weight = "15g",
+                        Rate = "5000",
+                        Making_Charge = "1000",
+                        Amount = "15000",
+                    }
+                };
+                foreach (var item in items)
+                {
+                    columnIndex = 0;
+                    foreach (var properties in typeof(ProductModel).GetProperties())
+                    {
+                        AddCells(normalFont, table, properties.GetValue(item).ToString(), columnIndex == 0 ? 3 : 0);
+                        columnIndex++;
+                    }
+                    columnIndex = 0;
+                }
+
+                //Amount Section
+                //var amount = $" Amount in Words : {ConvertAmountToWords(145700)}";
+                var AmountinWordHeading = new Chunk("Amount in Words : ", titleFont);
+                var amountvalue = new Chunk($"{ConvertAmountToWords(145700)} ₹ INR Only", normalFont);
+                var AmountinWordFulltext = new Paragraph
+                {
+                    AmountinWordHeading,
+                    "\n",
+                    amountvalue
+                };
+                //AddCells(normalFont, table, amount.ToString(), 5);
+                PdfPCell paymentHeaderCells = new PdfPCell(AmountinWordFulltext);
+                paymentHeaderCells.Rowspan = 6;
+                paymentHeaderCells.Colspan = 5;
+                paymentHeaderCells.BorderColorTop = BaseColor.WHITE;
+                table.AddCell(paymentHeaderCells);
+
+                AddCells(normalFont, table, "Discount:", 2);
+                AddCells(normalFont, table, "amount", 2);
+
+                AddCells(normalFont, table, "total:", 2);
+                AddCells(normalFont, table, "amount", 2);
+
+                AddCells(normalFont, table, "CGST 1.5%:", 2);
+                AddCells(normalFont, table, "amount", 2);
+
+                AddCells(normalFont, table, "SGST 1.5%", 2);
+                AddCells(normalFont, table, "amount", 2);
+
+                AddCells(normalFont, table, "IGST 1.5%:", 2);
+                AddCells(normalFont, table, "amount", 2);
+
+                AddCells(normalFont, table, "Total", 2);
+                AddCells(normalFont, table, "amount", 2);
+
+                //PdfPCell amountinWordCells = new PdfPCell(new Phrase(ConvertAmountToWords(145700), normalFont));
+                //amountinWordCells.Colspan = 5;
+                //amountinWordCells.BorderColorTop = BaseColor.WHITE;
+                //table.AddCell(amountinWordCells);
+                ////document.Add(amountinWordCells);
+                //detailsTable.AddCell(table);
+                document.Add(table);
+
+                // Add total amount
+                Paragraph totalAmount = new Paragraph("\nTotal Amount: $1150", titleFont);
+                document.Add(totalAmount);
+            }
+            catch (DocumentException de)
+            {
+                Console.Error.WriteLine(de.Message);
+            }
+            catch (IOException ioe)
+            {
+                Console.Error.WriteLine(ioe.Message);
             }
             catch (Exception ex)
             {
-
+                Console.Error.WriteLine(ex.Message);
             }
-            return null;
+            finally
+            {
+                document.Close();
+            }
+
+            // Staic Functions
+            static void AddCells(Font normalFont, PdfPTable table, string data, int Colspan, BaseColor baseColor = null)
+            {
+                PdfPCell paymentHeaderCells = new PdfPCell(new Phrase(data, normalFont));
+                paymentHeaderCells.Colspan = Colspan;
+                paymentHeaderCells.BorderColorTop = BaseColor.WHITE;
+                paymentHeaderCells.BackgroundColor = baseColor?? BaseColor.WHITE;
+                table.AddCell(paymentHeaderCells);
+            }
+
         }
 
-        private static void AddConsumerDetailandPayment(Document document)
+        private static void LeftRightTextforConsumer(Font normalFont,string lefttext, string Righttext, PdfPCell document)
         {
-            PdfPTable table = new PdfPTable(2);
+            PdfPTable conumerdetailsTable = new PdfPTable(2);
+            conumerdetailsTable.WidthPercentage = 100;
+            conumerdetailsTable.DefaultCell.Border = Rectangle.NO_BORDER;
 
-            table.AddCell("Name");
-            table.AddCell("Bank Name");
+            PdfPCell nameCell = new PdfPCell(new Phrase(lefttext, normalFont));
+            nameCell.HorizontalAlignment = Element.ALIGN_LEFT;
+            nameCell.Border = Rectangle.NO_BORDER;
+            conumerdetailsTable.AddCell(nameCell);
 
-            table.AddCell("Name");
-            table.AddCell("Address");
-
-            table.AddCell("Cheque No.");
-
-            table.AddCell("Mobile");
-            table.AddCell("Amount");
-
-            table.AddCell("Payment Type");
-            table.AddCell("Payment Reference");
-
-            document.Add(table);
-        }
-
-        private static void AddSnoanddate(iTextSharp.text.Document document)
-        {
-            Paragraph para = new ();
-            Chunk glue = new (new VerticalPositionMark());
-            Phrase ph1 = new()
-            {
-                new Chunk(Environment.NewLine)
-            };
-            string Sno = "S.No" + "{12345}".ToString();
-            string billdate = "Date" + "-" + "{EndDate}".ToString();
-            Paragraph main = new ();
-            ph1.Add(new Chunk(Sno)); // Here I add projectname as a chunk into Phrase.    
-            ph1.Add(glue);  // Here I add special chunk to the same phrase.    
-            ph1.Add(new Chunk(billdate)); // Here I add date as a chunk into same phrase.    
-            main.Add(ph1);
-            para.Add(main);
-            document.Add(para);
-        }
-
-        private static void CreateDefaultText(iTextSharp.text.Document document)
-        {
-            //add Default invoice text
-            Font headerfont = new(font, 25, Font.BOLD, BaseColor.WHITE);
-            Chunk headerchunk = new("Invoice text", headerfont);
-            headerchunk.SetBackground(darkcolor);
-            Paragraph invoice = new(headerchunk)
-            {
-                Alignment = Element.ALIGN_CENTER,
-            };
-            document.Add(invoice);
-
-            //add firm title
-            Paragraph firmtitle = new("Title Header", new Font(font, 25, Font.BOLD))
-            {
-                Alignment = Element.ALIGN_CENTER
-            };
-            document.Add(firmtitle);
-
-            //add address1
-            Paragraph firmAddress1 = new("Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...\"\n", new Font(font, 16, Font.BOLD))
-            {
-                Alignment = Element.ALIGN_CENTER
-            };
-            document.Add(firmAddress1);
-
-            //add address2
-            Paragraph firmAddress2 = new("There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...", new Font(font, 16, Font.BOLD))
-            {
-                Alignment = Element.ALIGN_CENTER
-            };
-            document.Add(firmAddress2);
+            PdfPCell mobileCell = new PdfPCell(new Phrase(Righttext, normalFont));
+            mobileCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+            mobileCell.Border = Rectangle.NO_BORDER;
+            conumerdetailsTable.AddCell(mobileCell);
+            document.AddElement(conumerdetailsTable);
         }
 
         private static void AddBoarder(iTextSharp.text.Document document, PdfWriter writer)
@@ -162,6 +339,76 @@ namespace PunjabOrnaments.Service.APi.Controllers.PDFController
         private static void AddNewLine(iTextSharp.text.Document document)
         {
             document.Add(new Paragraph("\n"));
+        }
+
+        private static string ConvertAmountToWords(int amount)
+        {
+            if (amount == 0)
+                return "Zero";
+
+            string[] units = { "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
+            string[] teens = { "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
+            string[] tens = { "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+
+            string words = "";
+
+            // Billion
+            if (amount >= 1000000000)
+            {
+                words += ConvertAmountToWords(amount / 1000000000) + " Billion ";
+                amount %= 1000000000;
+            }
+
+            // Million
+            if (amount >= 1000000)
+            {
+                words += ConvertAmountToWords(amount / 1000000) + " Million ";
+                amount %= 1000000;
+            }
+
+            // Thousand
+            if (amount >= 1000)
+            {
+                words += ConvertAmountToWords(amount / 1000) + " Thousand ";
+                amount %= 1000;
+            }
+
+            // Hundred
+            if (amount >= 100)
+            {
+                words += ConvertAmountToWords(amount / 100) + " Hundred ";
+                amount %= 100;
+            }
+
+            // Tens and Units
+            if (amount >= 20)
+            {
+                words += tens[amount / 10] + " ";
+                amount %= 10;
+            }
+            else if (amount >= 10)
+            {
+                words += teens[amount - 10] + " ";
+                amount = 0;
+            }
+
+            if (amount > 0)
+            {
+                words += units[amount] + " ";
+            }
+
+            return words.Trim();
+        }
+
+        public class ProductModel
+        {
+            public string Description { get; set; }
+            public string HSN_Code { get; set; }
+            public string Purity { get; set; }
+            public string Weight { get; set; }
+            public string Rate { get; set; }
+            public string Making_Charge { get; set; }
+            public string Amount { get; set; }
         }
     }
 }
