@@ -44,5 +44,4 @@
     <Folder Include="Controllers\PDFController\" />
     <Folder Include="Pdf\" />
   </ItemGroup>
-  <Import Project="Common\Models\PunjabOrnaments.Common.projitems" Label="Shared" Condition="Exists('Common\Models\PunjabOrnaments.Common.projitems')" />
 </Project>
