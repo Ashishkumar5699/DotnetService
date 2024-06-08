@@ -1,0 +1,3 @@
+[submodule "Common"]
+	path = Common
+	url = https://github.com/Ashishkumar5699/DotnetMauiLinker.git

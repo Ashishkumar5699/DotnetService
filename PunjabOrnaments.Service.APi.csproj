@@ -19,6 +19,8 @@
     <EmbeddedResource Remove="Controllers\HomePageController\**" />
     <None Remove="Constants\**" />
     <None Remove="Controllers\HomePageController\**" />
+    <None Remove="Controllers\PDFController\" />
+    <None Remove="Pdf\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +36,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.31.0" />
+    <!--<PackageReference Include="itext7" Version="8.0.3" />-->
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
   </ItemGroup>
 
-  <Import Project="DotnetMauiLinker\Models\PunjabOrnaments.Common.projitems" Label="Shared" Condition="Exists('DotnetMauiLinker\Models\PunjabOrnaments.Common.projitems')" />
+  <ItemGroup>
+    <Folder Include="Controllers\PDFController\" />
+    <Folder Include="Pdf\" />
+  </ItemGroup>
 </Project>
