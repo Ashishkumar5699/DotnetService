@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PunjabOrnaments.Service.APi", "PunjabOrnaments.Service.APi.csproj", "{6716E69A-C16C-46FC-B220-4C7A0DDE719E}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PunjabOrnaments.Common.Models", "DotnetMauiLinker\Models\PunjabOrnaments.Common.Models.shproj", "{601197A7-76E1-4C88-B263-D3F0ECF85C4C}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PunjabOrnaments.Common.Models", "Common\Models\PunjabOrnaments.Common.Models.shproj", "{601197A7-76E1-4C88-B263-D3F0ECF85C4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
