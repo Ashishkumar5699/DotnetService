@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonaar.Domain", "Common\Sonaar.Domain\Sonaar.Domain.csproj", "{E76DB44C-AEF8-4F20-A397-81598D555429}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonaar.Service.APi", "Service\Sonaar.Service.APi.csproj", "{77C7033E-6385-4C2C-85F8-761718AE0350}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E76DB44C-AEF8-4F20-A397-81598D555429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E76DB44C-AEF8-4F20-A397-81598D555429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E76DB44C-AEF8-4F20-A397-81598D555429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E76DB44C-AEF8-4F20-A397-81598D555429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C7033E-6385-4C2C-85F8-761718AE0350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C7033E-6385-4C2C-85F8-761718AE0350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C7033E-6385-4C2C-85F8-761718AE0350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C7033E-6385-4C2C-85F8-761718AE0350}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5052B7F3-FDB9-4487-A141-7C3B0DFC305E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Common\Models\PunjabOrnaments.Common.projitems*{601197a7-76e1-4c88-b263-d3f0ecf85c4c}*SharedItemsImports = 13
+		Common\Models\PunjabOrnaments.Common.projitems*{6716e69a-c16c-46fc-b220-4c7a0dde719e}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal
