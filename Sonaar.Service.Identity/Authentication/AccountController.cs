@@ -1,17 +1,19 @@
-﻿using Sonaar.Data;
-using Sonaar.DTOs;
-using Sonaar.Entities;
-using Sonaar.Interface;
-using Microsoft.AspNetCore.Authorization;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
+using Sonaar.Controllers;
+using Sonaar.Data;
+using Sonaar.Domain.Dto;
 using Sonaar.Domain.Models.Constants;
+using Sonaar.Domain.ResponseObject;
+using Sonaar.DTOs;
+using Sonaar.Entities;
+using Sonaar.Interface;
 
-namespace Sonaar.Controllers
+namespace Sonaar.Service.Identity.Authentication
 {
-    [AllowAnonymous]
     public class AccountController : BaseApiController
     {
         public AccountController(DataContext context, ITokenService tokenService) : base(context, tokenService)
@@ -20,9 +22,10 @@ namespace Sonaar.Controllers
 
         #region APIs
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<AuthUserResponse>> Register(RegisterDto registerDto)
         {
             if (await UserExist(registerDto.UserName)) return BadRequest("Username is taken");
+
             using var hmac = new HMACSHA512();
 
             var user = new AppUser
@@ -31,9 +34,12 @@ namespace Sonaar.Controllers
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key
             };
+
             _context.Users.Add(user);
+
             await _context.SaveChangesAsync();
-            return new UserDto
+
+            return new AuthUserResponse
             {
                 UserName = registerDto.UserName,
                 Password = null,
@@ -42,7 +48,7 @@ namespace Sonaar.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<Sonaar.Domain.Models.Response.ResponseResult<UserDto>>> Login(LoginDto loginDto)
+        public async Task<ActionResult<Sonaar.Domain.Models.Response.ResponseResult<AuthUserResponse>>> Login(LoginDto loginDto)
         {
             var user = new AppUser();
             try
@@ -51,16 +57,15 @@ namespace Sonaar.Controllers
             }
             catch (Exception ex)
             {
-                return new Sonaar.Domain.Models.Response.ResponseResult<UserDto>
+                return new Sonaar.Domain.Models.Response.ResponseResult<AuthUserResponse>
                 {
                     HasErrors = true,
                     Message = ex.ToString(),//GlobalMessages.InvalidUsername
                 };
             }
 
-
             if (user == null)
-                return new Sonaar.Domain.Models.Response.ResponseResult<UserDto>
+                return new Sonaar.Domain.Models.Response.ResponseResult<AuthUserResponse>
                 {
                     HasErrors = true,
                     Message = GlobalMessages.InvalidUsername
@@ -73,17 +78,17 @@ namespace Sonaar.Controllers
             for (int i = 0; i < computedHash.Length; i++)
             {
                 if (computedHash[i] != user.PasswordHash[i])
-                    return new Sonaar.Domain.Models.Response.ResponseResult<UserDto>
+                    return new Sonaar.Domain.Models.Response.ResponseResult<AuthUserResponse>
                     {
                         HasErrors = true,
                         Message = GlobalMessages.InvalidPassword
                     };
             }
 
-            return new Sonaar.Domain.Models.Response.ResponseResult<UserDto>
+            return new Sonaar.Domain.Models.Response.ResponseResult<AuthUserResponse>
             {
                 Message = GlobalMessages.SucessMessage,
-                Data = new UserDto()
+                Data = new AuthUserResponse()
                 {
                     UserName = loginDto.UserName,
                     Password = null,
@@ -111,5 +116,7 @@ namespace Sonaar.Controllers
             }
         }
         #endregion
+
     }
 }
+
