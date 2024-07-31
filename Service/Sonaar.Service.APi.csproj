@@ -19,7 +19,6 @@
     <EmbeddedResource Remove="Controllers\HomePageController\**" />
     <None Remove="Constants\**" />
     <None Remove="Controllers\HomePageController\**" />
-    <None Remove="Controllers\PDFController\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,9 +38,6 @@
     <PackageReference Include="iTextSharp" Version="5.5.13.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\PDFController\" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Sonaar.Domain\Sonaar.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
