@@ -2,7 +2,7 @@
 {
     public static class ConfigureCMCORSSExtension
     {
-        static readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        //static readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public static IServiceCollection ConfigureCMCORSSetting(this IServiceCollection services, ConfigurationManager configuration)
         {
             services.AddCors();
