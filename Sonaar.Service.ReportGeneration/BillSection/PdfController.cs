@@ -1,17 +1,16 @@
-﻿using Sonaar.Controllers;
-using Sonaar.Data;
-using Sonaar.Interface;
+﻿using System;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Mvc;
-using static iTextSharp.text.Font;
-using Document = iTextSharp.text.Document;
-using Rectangle = iTextSharp.text.Rectangle;
-using Sonaar.Domain.Models.Response;
 using Sonaar.Common.Bills;
+using Sonaar.Controllers;
+using Sonaar.Data;
 using Sonaar.Domain.Bills;
+using Sonaar.Domain.Models.Response;
+using Sonaar.Interface;
+using static iTextSharp.text.Font;
 
-namespace PunjabOrnaments.Service.APi.Controllers.PDFController
+namespace Sonaar.Service.ReportGeneration.BillSection
 {
     public class PdfController : BaseApiController
     {
@@ -19,10 +18,10 @@ namespace PunjabOrnaments.Service.APi.Controllers.PDFController
         public readonly FontFamily font = FontFamily.HELVETICA;
 
         private bool isInvoice = false;
+
         public PdfController(DataContext context, ITokenService tokenService) : base(context, tokenService)
         {
         }
-
 
         [HttpPost("GeneratePDFGPT")]
         public ResponseResult<byte[]> GeneratePDFGPT(PrintBillModel printBillModel)
@@ -226,11 +225,11 @@ namespace PunjabOrnaments.Service.APi.Controllers.PDFController
             PdfPCell paymentHeaderCells = new PdfPCell(new Phrase(data, normalFont));
             paymentHeaderCells.Colspan = Colspan;
             paymentHeaderCells.BorderColorTop = BaseColor.WHITE;
-            paymentHeaderCells.BackgroundColor = baseColor?? BaseColor.WHITE;
+            paymentHeaderCells.BackgroundColor = baseColor ?? BaseColor.WHITE;
             table.AddCell(paymentHeaderCells);
         }
 
-        private static void LeftRightTextforConsumer(Font normalFont,string lefttext, string Righttext, PdfPCell document)
+        private static void LeftRightTextforConsumer(Font normalFont, string lefttext, string Righttext, PdfPCell document)
         {
             PdfPTable conumerdetailsTable = new PdfPTable(2);
             conumerdetailsTable.WidthPercentage = 100;
