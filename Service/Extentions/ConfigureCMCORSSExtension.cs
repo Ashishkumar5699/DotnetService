@@ -17,10 +17,7 @@ namespace Sonaar.Extentions
             //                      });
             //});
 
-                services. .AddApplicationPart(Assembly.Load(new AssemblyName("Sonaar.Service.CustomerDirectory")));
-
             return services;
         }
     }
 }
-        //}

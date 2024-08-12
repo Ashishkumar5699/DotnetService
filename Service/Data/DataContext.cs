@@ -1,8 +1,8 @@
 ﻿using Sonaar.Entities;
-using Sonaar.Entities.Contacts;
 using Sonaar.Entities.Purchase;
 using Sonaar.Entities.Stock;
 using Microsoft.EntityFrameworkCore;
+using Sonaar.Domain.Entities.Contacts;
 
 namespace Sonaar.Data
 {

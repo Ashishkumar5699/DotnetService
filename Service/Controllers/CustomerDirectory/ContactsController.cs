@@ -1,18 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sonaar.Controllers;
 using Sonaar.Data;
 using Sonaar.Domain.Dto.CustomerDirectory;
+using Sonaar.Domain.Entities.Contacts;
 using Sonaar.Domain.Response;
-using Sonaar.Entities.Contacts;
 using Sonaar.Interface;
 
-namespace Sonaar.Service.CustomerDirectory.Contacts
+namespace Sonaar.Service.APi.Controllers.CustomerDirectory
 {
     public class ContactsController : BaseApiController
     {
-        public ContactsController(DataContext context, ITokenService tokenService) : base(context, tokenService)
+        private readonly IMapper _mapper;
+        public ContactsController(DataContext context, ITokenService tokenService, IMapper mapper) : base(context, tokenService)
         {
+            _mapper = mapper;
         }
 
         [HttpPost("AddContacts")]
@@ -24,7 +27,7 @@ namespace Sonaar.Service.CustomerDirectory.Contacts
             {
                 var isExist = await _context.ContactDetails.AnyAsync(x => x.ContactPhoneNumber == consumerDTO.ContactPhoneNumber);
 
-                if(isExist)
+                if (isExist)
                 {
                     result.HasErrors = true;
 
@@ -33,7 +36,7 @@ namespace Sonaar.Service.CustomerDirectory.Contacts
                     return result;
                 }
 
-                var _contactDetails = (ContactDetails)consumerDTO;
+                var _contactDetails = _mapper.Map<ContactDetails>(consumerDTO);
 
                 var contact = await _context.ContactDetails.AddAsync(_contactDetails);
 
@@ -62,6 +65,28 @@ namespace Sonaar.Service.CustomerDirectory.Contacts
                 BadRequest(ex?.Message);
             }
             return null;
+        }
+
+        [HttpPost("GetContactswithPhone")]
+        public async Task<ActionResult<ResponseResult<ContactDetails>>> GetContactswithPhone(string phone)
+        {
+            var response = new ResponseResult<ContactDetails>();
+            try
+            {
+                var isExist = await _context.ContactDetails.AnyAsync(x => x.ContactPhoneNumber == phone.ToLower());
+                if(isExist)
+                {
+                    var result = await _context.ContactDetails.SingleOrDefaultAsync(x => x.ContactPhoneNumber == phone.ToLower());
+                    response.Data =  result;
+                    response.Message = "sucess";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.HasErrors = true;
+                response.Message = ex.Message;
+            }
+            return response;
         }
     }
 }

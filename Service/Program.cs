@@ -1,4 +1,5 @@
 using System.Reflection;
+using Sonaar.Domain.Mapper;
 using Sonaar.Extentions;
 
 namespace Sonaar
@@ -18,7 +19,9 @@ namespace Sonaar
             builder.Services.AddIdentityServices(builder.Configuration);
             builder.Services.AddApplicationServices(builder.Configuration);
             builder.Services.ConfigureCMCORSSetting(builder.Configuration);
-            
+
+            builder.Services.AddAutoMapper(typeof(ContactProfile));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -2,16 +2,15 @@
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Mvc;
-using Sonaar.Domain.Bills;
-using Sonaar.Domain.Response;
 using Sonaar.Controllers;
 using Sonaar.Data;
-using Sonaar.Domain.Dto;
+using Sonaar.Domain.Bills;
+using Sonaar.Domain.Dto.ReportGeneration;
+using Sonaar.Domain.Response;
 using Sonaar.Interface;
 using static iTextSharp.text.Font;
-using Sonaar.Domain.Dto.ReportGeneration;
 
-namespace Sonaar.Service.ReportGeneration.BillSection
+namespace Sonaar.Service.APi.Controllers.ReportGeneration
 {
     public class PdfController : BaseApiController
     {

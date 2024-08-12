@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Sonaar' " />
-  <ItemGroup>
+  <!--<ItemGroup>
     <Compile Remove="Constants\**" />
     <Compile Remove="Controllers\HomePageController\**" />
     <Content Remove="Constants\**" />
@@ -19,7 +19,7 @@
     <EmbeddedResource Remove="Controllers\HomePageController\**" />
     <None Remove="Constants\**" />
     <None Remove="Controllers\HomePageController\**" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
@@ -42,5 +42,15 @@
     <ProjectReference Include="..\Common\Sonaar.Domain\Sonaar.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Controllers\IdentityController\" />
+    <None Remove="Controllers\ReportGeneration\" />
+    <None Remove="Controllers\CustomerDirectory\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\IdentityController\" />
+    <Folder Include="Controllers\ReportGeneration\" />
+    <Folder Include="Controllers\CustomerDirectory\" />
   </ItemGroup>
 </Project>

@@ -1,22 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 using Sonaar.Controllers;
 using Sonaar.Data;
+using Sonaar.Domain.Constants;
+using Sonaar.Domain.Dto.Authentication;
 using Sonaar.Domain.ResponseObject;
 using Sonaar.Entities;
 using Sonaar.Interface;
-using Sonaar.Domain.Constants;
-using Sonaar.Domain.Dto.Authentication;
 
-namespace Sonaar.Service.Identity.Authentication
+namespace Sonaar.Service.APi.Controllers.IdentityController
 {
     public class AccountController : BaseApiController
     {
+        #region Constructor
         public AccountController(DataContext context, ITokenService tokenService) : base(context, tokenService)
         {
         }
+        #endregion
 
         #region APIs
         [HttpPost("register")]
@@ -114,7 +117,6 @@ namespace Sonaar.Service.Identity.Authentication
             }
         }
         #endregion
-
     }
 }
 
