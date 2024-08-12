@@ -3,17 +3,17 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <!--<Nullable>enable</Nullable>-->
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Service\Sonaar.Service.APi.csproj" />
     <ProjectReference Include="..\Common\Sonaar.Domain\Sonaar.Domain.csproj" />
+    <ProjectReference Include="..\Service\Sonaar.Service.APi.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="BillSection\" />
+    <None Remove="Contacts\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BillSection\" />
+    <Folder Include="Contacts\" />
   </ItemGroup>
 </Project>

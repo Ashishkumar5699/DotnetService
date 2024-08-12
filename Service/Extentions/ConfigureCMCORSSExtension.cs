@@ -1,4 +1,6 @@
-﻿namespace Sonaar.Extentions
+﻿using System.Reflection;
+
+namespace Sonaar.Extentions
 {
     public static class ConfigureCMCORSSExtension
     {
@@ -14,6 +16,8 @@
             //                          policy.WithOrigins("http://localhost:5173");
             //                      });
             //});
+
+                services. .AddApplicationPart(Assembly.Load(new AssemblyName("Sonaar.Service.CustomerDirectory")));
 
             return services;
         }

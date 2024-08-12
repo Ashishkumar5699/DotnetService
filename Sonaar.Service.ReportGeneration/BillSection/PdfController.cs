@@ -2,13 +2,14 @@
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Mvc;
-using Sonaar.Common.Bills;
+using Sonaar.Domain.Bills;
+using Sonaar.Domain.Response;
 using Sonaar.Controllers;
 using Sonaar.Data;
-using Sonaar.Domain.Bills;
-using Sonaar.Domain.Models.Response;
+using Sonaar.Domain.Dto;
 using Sonaar.Interface;
 using static iTextSharp.text.Font;
+using Sonaar.Domain.Dto.ReportGeneration;
 
 namespace Sonaar.Service.ReportGeneration.BillSection
 {
@@ -24,7 +25,7 @@ namespace Sonaar.Service.ReportGeneration.BillSection
         }
 
         [HttpPost("GeneratePDFGPT")]
-        public ResponseResult<byte[]> GeneratePDFGPT(PrintBillModel printBillModel)
+        public ResponseResult<byte[]> GeneratePDFGPT(PrintBillDto printBillModel)
         {
             // Creating a Document   
             //Document document = new();
@@ -104,11 +105,11 @@ namespace Sonaar.Service.ReportGeneration.BillSection
                 detailsCell.Border = Rectangle.BOX;
 
                 // Add name, address, Aadhar number, GST number, PAN number, State, and State code
-                LeftRightTextforConsumer(normalFont, $"Name: {printBillModel.Consumer.CustmorFirstName}", $"Mobile: {printBillModel.Consumer.CustmorPhoneNumber}", detailsCell);
-                LeftRightTextforConsumer(normalFont, $"Address: {printBillModel.Consumer.CustmorAddress1}", $"City : {printBillModel.Consumer.CustmorCity}", detailsCell);
+                LeftRightTextforConsumer(normalFont, $"Name: {printBillModel.Consumer.ContactFirstName}", $"Mobile: {printBillModel.Consumer.ContactPhoneNumber}", detailsCell);
+                LeftRightTextforConsumer(normalFont, $"Address: {printBillModel.Consumer.ContactAddress1}", $"City : {printBillModel.Consumer.ContactCity}", detailsCell);
                 LeftRightTextforConsumer(normalFont, $"Aadhar Number: {printBillModel.Consumer.AdharNumber}", $"GST Number: {printBillModel.Consumer.CustmorGSTNumber}", detailsCell);
                 LeftRightTextforConsumer(normalFont, $"PAN Number: {printBillModel.Consumer.PanNumber}", $"Zip Code: {printBillModel.Consumer.CustmorZipCode}", detailsCell);
-                LeftRightTextforConsumer(normalFont, $"State: {printBillModel.Consumer.CustmorState}", $"Country: {printBillModel.Consumer.CustmorCountry}", detailsCell);
+                LeftRightTextforConsumer(normalFont, $"State: {printBillModel.Consumer.ContactState}", $"Country: {printBillModel.Consumer.CustmorCountry}", detailsCell);
 
                 detailsTable.AddCell(detailsCell);
                 document.Add(detailsTable);
@@ -220,7 +221,7 @@ namespace Sonaar.Service.ReportGeneration.BillSection
             return response;
         }
 
-        private static void AddCells(Font normalFont, PdfPTable table, string data, int Colspan, BaseColor baseColor = null)
+        private static void AddCells(Font normalFont, PdfPTable table, string data, int Colspan, BaseColor? baseColor = null)
         {
             PdfPCell paymentHeaderCells = new PdfPCell(new Phrase(data, normalFont));
             paymentHeaderCells.Colspan = Colspan;

@@ -12,8 +12,11 @@ namespace Sonaar.Data
         {
         }
         public DbSet<AppUser> Users { get; set; }
+
         public DbSet<Gold> GoldStock { get; set; }
+
         public DbSet<PurchaseRequest> PurchaseRequests { get; set; }
+
         public DbSet<ContactDetails> ContactDetails { get; set; }
     }
 }

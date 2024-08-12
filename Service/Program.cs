@@ -1,3 +1,4 @@
+using System.Reflection;
 using Sonaar.Extentions;
 
 namespace Sonaar
@@ -36,5 +37,10 @@ namespace Sonaar
 
             app.Run();
         }
+
+        //public static void ConfigureServices(IServiceCollection services)
+        //{
+        //    services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("ClassLibrary")));
+        //}
     }
 }

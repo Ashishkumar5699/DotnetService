@@ -1,16 +1,14 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 using Sonaar.Controllers;
 using Sonaar.Data;
-using Sonaar.Domain.Dto;
-using Sonaar.Domain.Models.Constants;
 using Sonaar.Domain.ResponseObject;
-using Sonaar.DTOs;
 using Sonaar.Entities;
 using Sonaar.Interface;
+using Sonaar.Domain.Constants;
+using Sonaar.Domain.Dto.Authentication;
 
 namespace Sonaar.Service.Identity.Authentication
 {
@@ -48,7 +46,7 @@ namespace Sonaar.Service.Identity.Authentication
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<Sonaar.Domain.Models.Response.ResponseResult<AuthUserResponse>>> Login(LoginDto loginDto)
+        public async Task<ActionResult<Sonaar.Domain.Response.ResponseResult<AuthUserResponse>>> Login(LoginDto loginDto)
         {
             var user = new AppUser();
             try
@@ -57,7 +55,7 @@ namespace Sonaar.Service.Identity.Authentication
             }
             catch (Exception ex)
             {
-                return new Sonaar.Domain.Models.Response.ResponseResult<AuthUserResponse>
+                return new Sonaar.Domain.Response.ResponseResult<AuthUserResponse>
                 {
                     HasErrors = true,
                     Message = ex.ToString(),//GlobalMessages.InvalidUsername
@@ -65,7 +63,7 @@ namespace Sonaar.Service.Identity.Authentication
             }
 
             if (user == null)
-                return new Sonaar.Domain.Models.Response.ResponseResult<AuthUserResponse>
+                return new Domain.Response.ResponseResult<AuthUserResponse>
                 {
                     HasErrors = true,
                     Message = GlobalMessages.InvalidUsername
@@ -78,14 +76,14 @@ namespace Sonaar.Service.Identity.Authentication
             for (int i = 0; i < computedHash.Length; i++)
             {
                 if (computedHash[i] != user.PasswordHash[i])
-                    return new Sonaar.Domain.Models.Response.ResponseResult<AuthUserResponse>
+                    return new Domain.Response.ResponseResult<AuthUserResponse>
                     {
                         HasErrors = true,
                         Message = GlobalMessages.InvalidPassword
                     };
             }
 
-            return new Sonaar.Domain.Models.Response.ResponseResult<AuthUserResponse>
+            return new Domain.Response.ResponseResult<AuthUserResponse>
             {
                 Message = GlobalMessages.SucessMessage,
                 Data = new AuthUserResponse()
