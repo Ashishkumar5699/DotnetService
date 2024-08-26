@@ -1,8 +1,8 @@
 ﻿using Sonaar.Entities;
-using Sonaar.Entities.Contacts;
 using Sonaar.Entities.Purchase;
 using Sonaar.Entities.Stock;
 using Microsoft.EntityFrameworkCore;
+using Sonaar.Domain.Entities.Contacts;
 
 namespace Sonaar.Data
 {
@@ -12,8 +12,11 @@ namespace Sonaar.Data
         {
         }
         public DbSet<AppUser> Users { get; set; }
+
         public DbSet<Gold> GoldStock { get; set; }
+
         public DbSet<PurchaseRequest> PurchaseRequests { get; set; }
+
         public DbSet<ContactDetails> ContactDetails { get; set; }
     }
 }
