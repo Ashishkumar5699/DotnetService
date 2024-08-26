@@ -7,10 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonaar.Domain", "Common\Son
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonaar.Service.APi", "Service\Sonaar.Service.APi.csproj", "{77C7033E-6385-4C2C-85F8-761718AE0350}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonaar.Service.Identity", "Sonaar.Service.Identity\Sonaar.Service.Identity.csproj", "{D1300C1D-F6ED-43EA-A531-8303061388EE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonaar.Service.ReportGeneration", "Sonaar.Service.ReportGeneration\Sonaar.Service.ReportGeneration.csproj", "{D73DA00D-840C-453D-8D02-E1FD18DA1507}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,14 +21,6 @@ Global
 		{77C7033E-6385-4C2C-85F8-761718AE0350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77C7033E-6385-4C2C-85F8-761718AE0350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77C7033E-6385-4C2C-85F8-761718AE0350}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1300C1D-F6ED-43EA-A531-8303061388EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1300C1D-F6ED-43EA-A531-8303061388EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1300C1D-F6ED-43EA-A531-8303061388EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1300C1D-F6ED-43EA-A531-8303061388EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D73DA00D-840C-453D-8D02-E1FD18DA1507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D73DA00D-840C-453D-8D02-E1FD18DA1507}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D73DA00D-840C-453D-8D02-E1FD18DA1507}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D73DA00D-840C-453D-8D02-E1FD18DA1507}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

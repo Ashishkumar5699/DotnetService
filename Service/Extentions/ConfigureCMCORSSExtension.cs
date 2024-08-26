@@ -1,4 +1,6 @@
-﻿namespace Sonaar.Extentions
+﻿using System.Reflection;
+
+namespace Sonaar.Extentions
 {
     public static class ConfigureCMCORSSExtension
     {
@@ -19,4 +21,3 @@
         }
     }
 }
-        //}
