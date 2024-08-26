@@ -220,7 +220,7 @@ namespace Sonaar.Service.APi.Controllers.ReportGeneration
             return response;
         }
 
-        private static void AddCells(Font normalFont, PdfPTable table, string data, int Colspan, BaseColor? baseColor = null)
+        private static void AddCells(Font normalFont, PdfPTable table, string data, int Colspan, BaseColor baseColor = null)
         {
             PdfPCell paymentHeaderCells = new PdfPCell(new Phrase(data, normalFont));
             paymentHeaderCells.Colspan = Colspan;

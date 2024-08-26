@@ -29,8 +29,6 @@ namespace Sonaar.Service.APi.Controllers.CustomerDirectory
 
                 if (isExist)
                 {
-                    result.HasErrors = true;
-
                     result.Message = "Phone number already Exist";
 
                     return result;
@@ -42,10 +40,10 @@ namespace Sonaar.Service.APi.Controllers.CustomerDirectory
 
                 await _context.SaveChangesAsync();
 
-                result.Message = "Sucess";
             }
             catch (Exception ex)
             {
+                result.HasErrors = true;
                 result.Message = $"Error {ex}";
             }
 
@@ -53,18 +51,21 @@ namespace Sonaar.Service.APi.Controllers.CustomerDirectory
         }
 
         [HttpGet("GetAllContacts")]
-        public async Task<ActionResult<IEnumerable<ContactDetails>>> GetAllContacts()
+        public async Task<ActionResult<ResponseResult<IEnumerable<ContactDetails>>>> GetAllContacts()
         {
+            var response = new ResponseResult<IEnumerable<ContactDetails>>();
             try
             {
                 var result = await _context.ContactDetails.ToListAsync();
-                return result;
+                response.Data = result;
             }
             catch (Exception ex)
             {
-                BadRequest(ex?.Message);
+                response.HasErrors = true;
+                response.Message = ex.Message;
+                //BadRequest(ex?.Message);
             }
-            return null;
+            return response;
         }
 
         [HttpPost("GetContactswithPhone")]
@@ -78,7 +79,6 @@ namespace Sonaar.Service.APi.Controllers.CustomerDirectory
                 {
                     var result = await _context.ContactDetails.SingleOrDefaultAsync(x => x.ContactPhoneNumber == phone.ToLower());
                     response.Data =  result;
-                    response.Message = "sucess";
                 }
             }
             catch (Exception ex)
