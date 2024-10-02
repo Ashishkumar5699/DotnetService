@@ -2,7 +2,7 @@
 
 namespace Sonaar.Entities.Purchase
 {
-    public class PurchaseRequest
+    public class PurchaseRequest: Sonaar.Domain.Approvals.PurchaseRequest
     {
         [Key]
         public int PurchaseRequestId { get; set; }

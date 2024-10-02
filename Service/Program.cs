@@ -1,6 +1,7 @@
 using System.Reflection;
 using Sonaar.Domain.Mapper;
 using Sonaar.Extentions;
+using Sonaar.Service.QuotationManagement.Configure;
 
 namespace Sonaar
 {
@@ -20,7 +21,9 @@ namespace Sonaar
             builder.Services.AddApplicationServices(builder.Configuration);
             builder.Services.ConfigureCMCORSSetting(builder.Configuration);
 
-            builder.Services.AddAutoMapper(typeof(ContactProfile));
+            builder.Services.AddLibrarySettings();
+
+            builder.Services.AddAutoSetting();
 
             var app = builder.Build();
 
@@ -41,9 +44,15 @@ namespace Sonaar
             app.Run();
         }
 
-        //public static void ConfigureServices(IServiceCollection services)
-        //{
-        //    services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("ClassLibrary")));
-        //}
+    }
+
+    public static class LibraryRegister
+    {
+        public static IServiceCollection AddLibrarySettings(this IServiceCollection services)
+        {
+            services.ConfigureQuotationServices();
+
+            return services;
+        }
     }
 }

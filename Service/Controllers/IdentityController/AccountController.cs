@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 using Sonaar.Controllers;
-using Sonaar.Data;
 using Sonaar.Domain.Constants;
 using Sonaar.Domain.Dto.Authentication;
 using Sonaar.Domain.ResponseObject;
-using Sonaar.Entities;
 using Sonaar.Interface;
+using Sonaar.Domain.Entities.Authentication;
+using Sonaar.Domain.DataContext;
 
 namespace Sonaar.Service.APi.Controllers.IdentityController
 {

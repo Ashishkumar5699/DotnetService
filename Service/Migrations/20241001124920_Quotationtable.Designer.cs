@@ -11,8 +11,8 @@ using Sonaar.Domain.DataContext;
 namespace Sonaar.Service.APi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240812122448_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241001124920_Quotationtable")]
+    partial class Quotationtable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,27 +20,7 @@ namespace Sonaar.Service.APi.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
 
-            modelBuilder.Entity("Sonaar.Entities.AppUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<byte[]>("PasswordHash")
-                        .HasColumnType("BLOB");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .HasColumnType("BLOB");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Sonaar.Entities.Contacts.ContactDetails", b =>
+            modelBuilder.Entity("Sonaar.Domain.Entities.Contacts.ContactDetails", b =>
                 {
                     b.Property<int>("ContactId")
                         .ValueGeneratedOnAdd()
@@ -97,6 +77,125 @@ namespace Sonaar.Service.APi.Migrations
                     b.HasKey("ContactId");
 
                     b.ToTable("ContactDetails");
+                });
+
+            modelBuilder.Entity("Sonaar.Domain.Entities.Product.ProductEntity", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HSN_Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Making_Charge")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Purity")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("QuotationId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ProductId");
+
+                    b.HasIndex("QuotationId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Sonaar.Domain.Entities.Quotations.GstAmountEntity", b =>
+                {
+                    b.Property<int>("GstAmountId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("CGSt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("GrandTotal")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("IGST")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("SGST")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("TotalAfterDiscount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("TotalBeforeDiscount")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("GstAmountId");
+
+                    b.ToTable("GstAmountEntity");
+                });
+
+            modelBuilder.Entity("Sonaar.Domain.Entities.Quotations.Quotation", b =>
+                {
+                    b.Property<int>("QuotationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BillType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Billid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ContactId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateofBill")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("GstAmountId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("QuotationId");
+
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("GstAmountId");
+
+                    b.ToTable("Quotations");
+                });
+
+            modelBuilder.Entity("Sonaar.Entities.AppUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Sonaar.Entities.Purchase.PurchaseRequest", b =>
@@ -182,6 +281,37 @@ namespace Sonaar.Service.APi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GoldStock");
+                });
+
+            modelBuilder.Entity("Sonaar.Domain.Entities.Product.ProductEntity", b =>
+                {
+                    b.HasOne("Sonaar.Domain.Entities.Quotations.Quotation", "Quotation")
+                        .WithMany("ProductList")
+                        .HasForeignKey("QuotationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Quotation");
+                });
+
+            modelBuilder.Entity("Sonaar.Domain.Entities.Quotations.Quotation", b =>
+                {
+                    b.HasOne("Sonaar.Domain.Entities.Contacts.ContactDetails", "ContactDetails")
+                        .WithMany()
+                        .HasForeignKey("ContactId");
+
+                    b.HasOne("Sonaar.Domain.Entities.Quotations.GstAmountEntity", "GSTAmount")
+                        .WithMany()
+                        .HasForeignKey("GstAmountId");
+
+                    b.Navigation("ContactDetails");
+
+                    b.Navigation("GSTAmount");
+                });
+
+            modelBuilder.Entity("Sonaar.Domain.Entities.Quotations.Quotation", b =>
+                {
+                    b.Navigation("ProductList");
                 });
 #pragma warning restore 612, 618
         }

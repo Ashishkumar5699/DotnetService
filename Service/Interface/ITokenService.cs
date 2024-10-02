@@ -1,4 +1,5 @@
-﻿using Sonaar.Entities;
+﻿using Sonaar.Domain.Entities.Authentication;
+using Sonaar.Entities;
 
 namespace Sonaar.Interface
 {

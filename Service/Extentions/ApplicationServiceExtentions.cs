@@ -1,6 +1,6 @@
-﻿using Sonaar.Data;
-using Sonaar.Interface;
+﻿using Sonaar.Interface;
 using Microsoft.EntityFrameworkCore;
+using Sonaar.Domain.DataContext;
 
 namespace Sonaar.Extentions
 {

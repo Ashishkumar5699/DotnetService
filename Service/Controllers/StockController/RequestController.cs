@@ -1,8 +1,8 @@
-﻿using Sonaar.Data;
-using Sonaar.DTOs.PurchaseDto;
+﻿using Sonaar.DTOs.PurchaseDto;
 using Sonaar.Entities.Purchase;
 using Sonaar.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Sonaar.Domain.DataContext;
 
 namespace Sonaar.Controllers.StockController
 {
@@ -50,7 +50,7 @@ namespace Sonaar.Controllers.StockController
             return new GoldPurchaseDTo
             {
                 
-                PurchaseRequestId = goldPurchaseRequest.PurchaseRequestId,
+                //PurchaseRequestId = goldPurchaseRequest.PurchaseRequestId,
                 MatelType = goldPurchaseRequest.MatelType,
                 ItemType = goldPurchaseRequest.ItemType,
                 Brand = goldPurchaseRequest.Brand,
@@ -68,9 +68,9 @@ namespace Sonaar.Controllers.StockController
         }
 
         [HttpGet("GetGoldRequestDetail/{id}")]
-        public async Task<PurchaseRequest> GetGoldRequestDetail(int? id)
+        public async Task<Sonaar.Domain.Approvals.PurchaseRequest> GetGoldRequestDetail(int? id)
         {
-            PurchaseRequest purchaseRequest;
+            Sonaar.Domain.Approvals.PurchaseRequest purchaseRequest;
             purchaseRequest = await _context.PurchaseRequests.FindAsync(id);
             if (purchaseRequest != null)
                 return purchaseRequest;

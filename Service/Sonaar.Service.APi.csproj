@@ -23,8 +23,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8" />
+    <!--<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.8" />-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0-rc.1.24451.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.8">
       <PrivateAssets>all</PrivateAssets>
@@ -42,15 +42,20 @@
     <ProjectReference Include="..\Common\Sonaar.Domain\Sonaar.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\Sonaar.Service.QuotationManagement\Sonaar.Service.QuotationManagement.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controllers\IdentityController\" />
     <None Remove="Controllers\ReportGeneration\" />
     <None Remove="Controllers\CustomerDirectory\" />
+    <None Remove="Controllers\SaleController\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\IdentityController\" />
     <Folder Include="Controllers\ReportGeneration\" />
     <Folder Include="Controllers\CustomerDirectory\" />
+    <Folder Include="Controllers\SaleController\" />
   </ItemGroup>
 </Project>

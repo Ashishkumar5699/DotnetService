@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonaar.Domain", "Common\Son
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonaar.Service.APi", "Service\Sonaar.Service.APi.csproj", "{77C7033E-6385-4C2C-85F8-761718AE0350}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonaar.Service.QuotationManagement", "Sonaar.Service.QuotationManagement\Sonaar.Service.QuotationManagement.csproj", "{F6C28451-27C5-4273-BCBD-A229F89057C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{77C7033E-6385-4C2C-85F8-761718AE0350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77C7033E-6385-4C2C-85F8-761718AE0350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77C7033E-6385-4C2C-85F8-761718AE0350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6C28451-27C5-4273-BCBD-A229F89057C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6C28451-27C5-4273-BCBD-A229F89057C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6C28451-27C5-4273-BCBD-A229F89057C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6C28451-27C5-4273-BCBD-A229F89057C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,10 +1,10 @@
-﻿using Sonaar.Data;
-using Sonaar.DTOs.StockDto;
+﻿using Sonaar.DTOs.StockDto;
 using Sonaar.Entities.Stock;
 using Sonaar.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Sonaar.Domain.DataContext;
 
 namespace Sonaar.Controllers.StockController
 {
@@ -17,7 +17,7 @@ namespace Sonaar.Controllers.StockController
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Gold>>> GetAllStock()
+        public async Task<ActionResult<IEnumerable<Sonaar.Domain.Models.Products.Gold>>> GetAllStock()
         {
             return await _context.GoldStock.ToListAsync();
         }
