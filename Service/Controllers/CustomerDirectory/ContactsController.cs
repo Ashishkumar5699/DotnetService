@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sonaar.Controllers;
-using Sonaar.Data;
+using Sonaar.Domain.DataContexts;
 using Sonaar.Domain.Dto.CustomerDirectory;
 using Sonaar.Domain.Entities.Contacts;
 using Sonaar.Domain.Response;
