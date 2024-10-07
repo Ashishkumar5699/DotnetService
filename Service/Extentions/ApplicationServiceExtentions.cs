@@ -1,6 +1,6 @@
 ﻿using Sonaar.Interface;
 using Microsoft.EntityFrameworkCore;
-using Sonaar.Domain.DataContext;
+using Sonaar.Domain.DataContexts;
 
 namespace Sonaar.Extentions
 {
@@ -10,6 +10,7 @@ namespace Sonaar.Extentions
         {
             services.AddDbContext<DataContext>(opt => {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnectionSQLite"));
+                    //, b =>b.MigrationsAssembly());
                 //opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ITokenService, Services.TokenService>();

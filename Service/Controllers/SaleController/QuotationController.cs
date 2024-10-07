@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sonaar.Controllers;
-using Sonaar.Domain.DataContext;
+using Sonaar.Domain.DataContexts;
 using Sonaar.Domain.Dto.ReportGeneration;
+using Sonaar.Domain.Entities.Product;
 using Sonaar.Domain.Entities.Quotations;
 using Sonaar.Domain.Response;
 using Sonaar.Interface;
@@ -55,12 +56,26 @@ namespace Sonaar.Service.APi.Controllers.SaleController
                     .Include(q => q.ContactDetails) // Include related entities as needed
                     .Include(q => q.ProductList)     // Include products
                     .Include(q => q.GSTAmount)       // Include GST amount
+                    //.Select(q => new Quotation
+                    //{
+                    //    QuotationId = q.QuotationId,
+                    //    //QuotationNumber = q.QuotationNumber,
+                    //    GSTAmount = q.GSTAmount, // Adjust as needed
+
+                    //    ProductList = q.ProductList.Select(p => new ProductEntity
+                    //    {
+                    //        ProductId = p.ProductId,
+                    //        QuotationId = p.QuotationId // Include if necessary
+                    //                                    // Map other necessary fields
+                    //    }).ToList()
+                    //})
                     .ToListAsync();
                 result.Data = quotationList;
             }
             catch (Exception ex)
             {
                 result.HasErrors = true;
+                result.Message = ex.Message;
                 result.Data = new List<Quotation>();
             }
             return result;

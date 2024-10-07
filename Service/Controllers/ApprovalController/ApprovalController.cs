@@ -3,7 +3,7 @@ using Sonaar.Entities.Purchase;
 using Sonaar.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Sonaar.Domain.DataContext;
+using Sonaar.Domain.DataContexts;
 
 namespace Sonaar.Controllers.ApprovalController
 {
@@ -13,19 +13,19 @@ namespace Sonaar.Controllers.ApprovalController
         {
         }
 
-        [HttpGet("Getallgoldpurchaserequests")]
-        public async Task<ActionResult<IEnumerable<Sonaar.Domain.Approvals.PurchaseRequest>>> Getallgoldpurchaserequests()
-        {
-            try
-            {
-                var result =  await _context.PurchaseRequests.ToListAsync();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //[HttpGet("Getallgoldpurchaserequests")]
+        //public async Task<ActionResult<IEnumerable<Sonaar.Domain.Approvals.PurchaseRequest>>> Getallgoldpurchaserequests()
+        //{
+        //    try
+        //    {
+        //        var result =  await _context.PurchaseRequests.ToListAsync();
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         //[HttpPut("GoldApprove/{id}")]
         //public async Task<ActionResult<GoldPurchaseDTo>> GoldApprove(int id)

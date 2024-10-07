@@ -1,6 +1,6 @@
 ﻿using Sonaar.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Sonaar.Domain.DataContext;
+using Sonaar.Domain.DataContexts;
 
 namespace Sonaar.Controllers
 {

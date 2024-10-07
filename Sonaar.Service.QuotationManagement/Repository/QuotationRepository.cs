@@ -1,7 +1,7 @@
 ﻿using System;
 using Sonaar.Domain.Entities.Quotations;
 using Microsoft.EntityFrameworkCore;
-using Sonaar.Domain.DataContext;
+using Sonaar.Domain.DataContexts;
 
 namespace Sonaar.Service.QuotationManagement.Repository
 {
