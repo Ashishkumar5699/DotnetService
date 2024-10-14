@@ -15,12 +15,14 @@ namespace Sonaar.Service.APi.Controllers.SaleController
     public class QuotationController : BaseApiController
     {
         private readonly IMapper _mapper;
-        public QuotationController(DataContext context, ITokenService tokenService, IMapper mapper) : base(context, tokenService)
+        private readonly QuotationService _quotationService;
+
+        public QuotationController(DataContext context, ITokenService tokenService, IMapper mapper,QuotationService quotationService) : base(context, tokenService)
         {
             _mapper = mapper;
+            _quotationService = quotationService;
         }
 
-        private readonly QuotationService quotationService;
 
         [HttpPost("CreateQuotation")]
         public async Task<ExecResult> CreateQuote(PrintBillDto _createQuoteDTO)
@@ -30,9 +32,7 @@ namespace Sonaar.Service.APi.Controllers.SaleController
             try
             {
                 var _quotation = _mapper.Map<Quotation>(_createQuoteDTO);
-                // add product in product table the merge it in Key
-                //add gst amount in table and merge it with key
-                //tranjection commit rolback
+                
                 await _context.Quotations.AddAsync(_quotation);
 
                 await _context.SaveChangesAsync();
@@ -52,24 +52,7 @@ namespace Sonaar.Service.APi.Controllers.SaleController
             var result = new ResponseResult<List<Quotation>>();
             try
             {
-                var quotationList = await _context.Quotations
-                    .Include(q => q.ContactDetails) // Include related entities as needed
-                    .Include(q => q.ProductList)     // Include products
-                    .Include(q => q.GSTAmount)       // Include GST amount
-                    //.Select(q => new Quotation
-                    //{
-                    //    QuotationId = q.QuotationId,
-                    //    //QuotationNumber = q.QuotationNumber,
-                    //    GSTAmount = q.GSTAmount, // Adjust as needed
-
-                    //    ProductList = q.ProductList.Select(p => new ProductEntity
-                    //    {
-                    //        ProductId = p.ProductId,
-                    //        QuotationId = p.QuotationId // Include if necessary
-                    //                                    // Map other necessary fields
-                    //    }).ToList()
-                    //})
-                    .ToListAsync();
+                var quotationList = await _quotationService.GetAllQuotationsAsync();
                 result.Data = quotationList;
             }
             catch (Exception ex)
