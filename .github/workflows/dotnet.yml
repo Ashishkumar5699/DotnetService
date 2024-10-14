@@ -1,0 +1,43 @@
+name: .NET CI
+
+on:
+  push:
+    branches:
+      - Release  # Change this to your default branch if it's not 'main'
+  pull_request:
+    branches:
+      - Release  # Change this to your default branch if it's not 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        submodules: true  # Initialize and update submodules
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '9.0.x'  # Change to your desired .NET version
+        include-prerelease: true  # Enable installation of preview versions
+
+    - name: Restore dependencies
+      run: dotnet restore ./Sonaar.Service.APi.sln  # Update with your solution file path
+
+    - name: Build
+      run: dotnet build ./Sonaar.Service.APi.sln --configuration Release --no-restore
+
+    - name: Run tests
+      run: dotnet test ./Sonaar.Service.APi.sln --configuration Release --no-build --verbosity normal
+
+    - name: Publish
+      run: dotnet publish ./Service/Sonaar.Service.APi.csproj --configuration Release --output ./output  # Update with your project file path
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3  # Updated to v3
+      with:
+        name: published-output
+        path: ./output
