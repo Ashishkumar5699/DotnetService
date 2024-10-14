@@ -19,7 +19,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '9.0.100-preview.1'  # Change to your desired .NET version
+        dotnet-version: '9.0.100-preview.2.24474.11'  # Change to your desired .NET version
         include-prerelease: true  # Enable installation of preview versions
 
     - name: Restore dependencies
