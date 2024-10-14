@@ -19,7 +19,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '9.0.x'  # Change to your desired .NET version
+        dotnet-version: '9.0.100-preview.1'  # Change to your desired .NET version
 
     - name: Restore dependencies
       run: dotnet restore ./Sonaar.Service.APi.sln  # Update with your solution file path
