@@ -1,4 +1,7 @@
+using System.Reflection;
+using Sonaar.Domain.Mapper;
 using Sonaar.Extentions;
+using Sonaar.Service.QuotationManagement.Configure;
 
 namespace Sonaar
 {
@@ -10,14 +13,24 @@ namespace Sonaar
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            //builder.Services.AddControllers();
+            builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddIdentityServices(builder.Configuration);
             builder.Services.AddApplicationServices(builder.Configuration);
             builder.Services.ConfigureCMCORSSetting(builder.Configuration);
-            
+
+            builder.Services.AddLibrarySettings();
+
+            builder.Services.AddAutoSetting();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -35,6 +48,17 @@ namespace Sonaar
             app.MapControllers();
 
             app.Run();
+        }
+
+    }
+
+    public static class LibraryRegister
+    {
+        public static IServiceCollection AddLibrarySettings(this IServiceCollection services)
+        {
+            services.ConfigureQuotationServices();
+
+            return services;
         }
     }
 }
