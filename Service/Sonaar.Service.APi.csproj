@@ -49,6 +49,8 @@
     <ProjectReference Include="..\Sonaar.Service.QuotationManagement\Sonaar.Service.QuotationManagement.csproj">
       <!--<GlobalPropertiesToRemove></GlobalPropertiesToRemove>-->
     </ProjectReference>
+    <ProjectReference Include="..\Sonaar.Service.Identity\Sonaar.Service.Identity.csproj" />
+    <ProjectReference Include="..\Sonaar.Service.CustomerDirectory\Sonaar.Service.CustomerDirectory.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controllers\IdentityController\" />
