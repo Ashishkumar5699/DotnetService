@@ -11,9 +11,10 @@ namespace Sonaar.Service.APi.Controllers
     [Route("/")]
 	public class DefaultController : ControllerBase
     {
+        [HttpGet]
         public string Index()
         {
-            return $"It Works on {Dns.GetHostName()} ! Sonaar Service version 0.0.1";
+            return $"Server is UP!! Sonaar Service version 0.0.2";
         }
     }
 }

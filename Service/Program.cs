@@ -2,6 +2,8 @@ using System.Reflection;
 using Sonaar.Domain.Mapper;
 using Sonaar.Extentions;
 using Sonaar.Service.QuotationManagement.Configure;
+using Sonaar.Service.Identity.Configure;
+using Sonaar.Service.CustomerDirectory.Configure;
 
 namespace Sonaar
 {
@@ -27,7 +29,7 @@ namespace Sonaar
             builder.Services.AddApplicationServices(builder.Configuration);
             builder.Services.ConfigureCMCORSSetting(builder.Configuration);
 
-            builder.Services.AddLibrarySettings();
+            builder.Services.AddLibrarySettings(builder.Configuration);
 
             builder.Services.AddAutoSetting();
 
@@ -54,9 +56,11 @@ namespace Sonaar
 
     public static class LibraryRegister
     {
-        public static IServiceCollection AddLibrarySettings(this IServiceCollection services)
+        public static IServiceCollection AddLibrarySettings(this IServiceCollection services,ConfigurationManager configuration)
         {
             services.ConfigureQuotationServices();
+            services.ConfigureIdentityServices(configuration);
+            services.ConfigureCustmorDirectory();
 
             return services;
         }
