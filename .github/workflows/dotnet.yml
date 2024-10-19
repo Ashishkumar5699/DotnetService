@@ -50,5 +50,5 @@ jobs:
         user: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         localDir: "dist"
-        remoteDir: ${{ secrets.FTP_RemoteDir }}
+        remoteDir: ${{ secrets.FTP_REMOTEDIR }}
         options: "--delete --asci"
