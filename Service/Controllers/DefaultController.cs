@@ -14,7 +14,7 @@ namespace Sonaar.Service.APi.Controllers
         [HttpGet]
         public string Index()
         {
-            return $"Server is UP!! Sonaar Service version 0.0.2";
+            return $"Server is UP!! Sonaar Service version 0.0.3";
         }
     }
 }
