@@ -6,7 +6,7 @@ on:
       - Release  # Change this to your default branch if it's not 'main'
   pull_request:
     branches:
-      - Release  # Change this to your default branch if it's not 'main'
+      - Release
 
 jobs:
   build:
@@ -19,25 +19,36 @@ jobs:
         submodules: true  # Initialize and update submodules
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: '9.0.x'  # Change to your desired .NET version
-        include-prerelease: true  # Enable installation of preview versions
+        dotnet-version: '8.0.x'
+        include-prerelease: true
 
     - name: Restore dependencies
-      run: dotnet restore ./Sonaar.Service.APi.sln  # Update with your solution file path
+      run: dotnet restore ./Sonaar.Service.APi.sln
 
     - name: Build
       run: dotnet build ./Sonaar.Service.APi.sln --configuration Release --no-restore
 
     - name: Run tests
       run: dotnet test ./Sonaar.Service.APi.sln --configuration Release --no-build --verbosity normal
+      continue-on-error: false
 
     - name: Publish
-      run: dotnet publish ./Service/Sonaar.Service.APi.csproj --configuration Release --output ./output  # Update with your project file path
+      run: dotnet publish ./Service/Sonaar.Service.APi.csproj --configuration Release --output ./output
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v3  # Updated to v3
+      uses: actions/upload-artifact@v3
       with:
         name: published-output
         path: ./output
+
+    - name: FTP Upload
+      uses: sebastianpopp/ftp-action@releases/v2 
+      with:
+        host: ${{ secrets.FTP_SERVER }}
+        user: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        localDir: "dist"
+        remoteDir: "www"
+        options: "--delete --asci"
